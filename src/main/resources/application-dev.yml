@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/releave?reconnect=true
+    username: root
+    password: root
+  jpa:
+   show-sql: true
+   hibernate:
+     ddl-auto: update
+   properties:
+     hibernate:
+        format_sql: true
