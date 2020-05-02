@@ -1,12 +1,11 @@
 package br.com.megahack.releave.controller;
 
-import br.com.megahack.releave.model.UserEntity;
+import br.com.megahack.releave.model.User;
 import br.com.megahack.releave.model.dto.request.UserRequestDto;
 import br.com.megahack.releave.model.dto.response.UserResponseDto;
 import br.com.megahack.releave.service.UserService;
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class UserController {
 
   @PostMapping
   public ResponseEntity<UserResponseDto> save(@RequestBody @Valid UserRequestDto userDto) {
-    UserEntity user = userService.save(userService.toEntity(userDto));
+    User user = userService.save(userService.toEntity(userDto));
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(user.getId())
         .toUri();
