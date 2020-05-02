@@ -6,6 +6,7 @@ import br.com.megahack.releave.model.dto.response.UserResponseDto;
 import br.com.megahack.releave.repository.UserRepository;
 import br.com.megahack.releave.service.exception.ObjectNotFoundException;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public UserEntity findById(Long id) {
+  public UserEntity findById(String id) {
     return userRepository.findById(id)
         .orElseThrow(
             () -> new ObjectNotFoundException(String.format("User id %s not found.", id)));

@@ -6,6 +6,7 @@ import br.com.megahack.releave.model.dto.response.UserResponseDto;
 import br.com.megahack.releave.service.UserService;
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<UserResponseDto> findById(@PathVariable("id") Long id) {
+  public ResponseEntity<UserResponseDto> findById(@PathVariable("id") String id) {
     return ResponseEntity.ok(userService.toDto(userService.findById(id)));
   }
 

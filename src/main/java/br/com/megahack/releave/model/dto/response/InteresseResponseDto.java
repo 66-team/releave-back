@@ -10,7 +10,7 @@ public class InteresseResponseDto {
 
     //TODO ACRESCENTAR NOVOS ATRIBUTOS DE INTERESSE
 
-    private Long id;
+    private String id;
     private String categoria;
 
 }

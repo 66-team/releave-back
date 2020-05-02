@@ -1,27 +1,38 @@
 package br.com.megahack.releave.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Entity(name = "usuario")
+@Document(collection = "users")
 public class UserEntity implements Serializable {
 
   @Id
-  @SequenceGenerator(name = "user_sequence", sequenceName = "user_seq", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_sequence")
-  private Long id;
-
-  @Column(name = "name", nullable = false, length = 55)
+  private String id;
   private String name;
+  private String cpf;
+  private LocalDate birthday;
+  private Gender gender;
+  private UserType type;
+  private String photoUrl;
+  private String password;
+  private LocalDateTime createdDate;
 
-  @OneToMany(mappedBy = "usuario")
-  private InteresseEntity interesse;
+  private enum Gender{
+    MAN, WOMAN
+  }
+  private enum UserType{
+     USER, PROVIDER
+  }
+
+  public UserEntity (){
+    this.createdDate = LocalDateTime.now();
+  }
 
 }
