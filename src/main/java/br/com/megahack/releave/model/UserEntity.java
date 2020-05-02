@@ -1,27 +1,27 @@
 package br.com.megahack.releave.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "tb_user")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(name = "usuario")
 public class UserEntity implements Serializable {
 
   @Id
+  @SequenceGenerator(name = "user_sequence", sequenceName = "user_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_sequence")
-  @SequenceGenerator(name = "user_sequence", sequenceName = "user_seq")
   private Long id;
 
-  @Column(name = "name", nullable = false, length = 100)
+  @Column(name = "name", nullable = false, length = 55)
   private String name;
+
+  @OneToMany(mappedBy = "usuario")
+  private InteresseEntity interesse;
+
 }
