@@ -1,23 +1,22 @@
 package br.com.megahack.releave.model;
 
 import br.com.megahack.releave.model.dto.reference.CompanyReferenceDto;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "users")
-public class User implements Serializable {
+public class User extends AbstractModel {
 
-  @Id
-  private String id;
   private String name;
   private String cpf;
   private LocalDate birthday;
@@ -25,7 +24,6 @@ public class User implements Serializable {
   private UserType type;
   private String photoUrl;
   private String password;
-  private LocalDateTime createdDate;
   private List<CompanyReferenceDto> companyOwner = new ArrayList<>();
   private List<CompanyReferenceDto> companiesEmployer = new ArrayList<>();
 
@@ -33,11 +31,6 @@ public class User implements Serializable {
     MAN, WOMAN
   }
   public enum UserType{
-     USER, PROVIDER
+    CUSTOMER, SELLER
   }
-
-  public User(){
-    this.createdDate = LocalDateTime.now();
-  }
-
 }

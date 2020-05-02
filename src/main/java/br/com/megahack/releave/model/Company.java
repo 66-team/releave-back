@@ -1,32 +1,34 @@
 package br.com.megahack.releave.model;
 
 import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @Document(collection = "company")
-public class Company implements Serializable {
+public class Company extends AbstractModel {
 
-  private String id;
   private String cnpj;
   private String fantasyName;
   private UserReferenceDto owner;
   @DBRef(lazy = true)
   private List<User> employees = new ArrayList<>();
-  private LocalDateTime createdDate;
+  @DBRef(lazy = true)
+  private List<Product> products = new ArrayList<>();
 
-
-  public Company (){
-    this.createdDate = LocalDateTime.now();
+  public Company(String cnpj, String fantasyName,
+      UserReferenceDto owner) {
+    super();
+    this.cnpj = cnpj;
+    this.fantasyName = fantasyName;
+    this.owner = owner;
   }
-
 
 }
