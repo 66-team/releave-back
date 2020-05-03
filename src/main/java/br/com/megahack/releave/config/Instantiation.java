@@ -9,6 +9,7 @@ import br.com.megahack.releave.model.User.Gender;
 import br.com.megahack.releave.model.User.UserType;
 import br.com.megahack.releave.model.dto.reference.CompanyReferenceDto;
 import br.com.megahack.releave.model.dto.reference.ProductReferenceDto;
+import br.com.megahack.releave.model.dto.reference.ProductStorageReferenceDto;
 import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
 import br.com.megahack.releave.repository.CompanyRepository;
 import br.com.megahack.releave.repository.EventRepository;
@@ -53,10 +54,10 @@ public class Instantiation implements CommandLineRunner {
     productRepository.deleteAll();
     productStorageRepository.deleteAll();
 
-    User almir = new User("Almir", "12345678909", LocalDate.of(1994, 2, 19), Gender.MAN,
-        UserType.CUSTOMER, null, "1234", null, null);
-    User renan = new User("Renan", "66742956046", LocalDate.of(1995, 2, 16), Gender.WOMAN,
-        UserType.SELLER, null, "1234", null, null);
+    User almir = new User("Almir", "12345678909", LocalDate.of(1994, 2, 19), "almir@gmail.com",Gender.MAN,
+        UserType.CUSTOMER, null, "1234", null, null,false);
+    User renan = new User("Renan", "66742956046", LocalDate.of(1995, 2, 16), "renan@gmail.com",Gender.WOMAN,
+        UserType.SELLER, null, "1234", null, null, false);
 
     userRepository.saveAll(Arrays.asList(almir, renan));
 
@@ -83,11 +84,13 @@ public class Instantiation implements CommandLineRunner {
     productRepository.save(product);
 
     company.getProducts().add(product);
+    company.getStorage().add(productStorage);
     companyRepository.save(company);
+
 
     Event event = new Event("Novo Livro Paulo Coelho", "Livro blá blá blá",
         LocalDateTime.of(2020, 2, 1, 20, 30), LocalDateTime.of(2020, 2, 1, 21, 30),
-        Collections.singletonList(product), "www.youtube.com", new CompanyReferenceDto(company),
+        Collections.singletonList(new ProductStorageReferenceDto(productStorage)), "www.youtube.com", new CompanyReferenceDto(company),
         new UserReferenceDto(renan), false);
     eventRepository.save(event);
 
