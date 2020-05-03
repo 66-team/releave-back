@@ -3,14 +3,17 @@ package br.com.megahack.releave.config;
 import br.com.megahack.releave.model.Company;
 import br.com.megahack.releave.model.Event;
 import br.com.megahack.releave.model.Product;
+import br.com.megahack.releave.model.ProductStorage;
 import br.com.megahack.releave.model.User;
 import br.com.megahack.releave.model.User.Gender;
 import br.com.megahack.releave.model.User.UserType;
 import br.com.megahack.releave.model.dto.reference.CompanyReferenceDto;
+import br.com.megahack.releave.model.dto.reference.ProductReferenceDto;
 import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
 import br.com.megahack.releave.repository.CompanyRepository;
 import br.com.megahack.releave.repository.EventRepository;
 import br.com.megahack.releave.repository.ProductRepository;
+import br.com.megahack.releave.repository.ProductStorageRepository;
 import br.com.megahack.releave.repository.UserRepository;
 import com.google.common.collect.Sets;
 import java.math.BigDecimal;
@@ -18,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +40,7 @@ public class Instantiation implements CommandLineRunner {
   private final CompanyRepository companyRepository;
   private final ProductRepository productRepository;
   private final EventRepository eventRepository;
+  private final ProductStorageRepository productStorageRepository;
 
 
   @Override
@@ -45,6 +50,8 @@ public class Instantiation implements CommandLineRunner {
     companyRepository.deleteAll();
     productRepository.deleteAll();
     eventRepository.deleteAll();
+    productRepository.deleteAll();
+    productStorageRepository.deleteAll();
 
     User almir = new User("Almir", "12345678909", LocalDate.of(1994, 2, 19), Gender.MAN,
         UserType.CUSTOMER, null, "1234", null, null);
@@ -64,9 +71,15 @@ public class Instantiation implements CommandLineRunner {
 
     userRepository.saveAll(Arrays.asList(almir, renan));
 
-    Product product = new Product("Camisa", "Cor branca", "Adidas", BigDecimal.valueOf(10.56),
+    Product product = new Product("Camisa", "Cor branca", "Adidas","REF1234",
         Sets.newHashSet("www.uol.com.br", "www.bol.com.br"),
-        new CompanyReferenceDto(company), 5, new UserReferenceDto(renan));
+        new CompanyReferenceDto(company), new UserReferenceDto(renan));
+    productRepository.save(product);
+
+    ProductStorage productStorage = new ProductStorage(new ProductReferenceDto(product), BigDecimal.valueOf(10.50D), 25, "REF342523");
+    productStorageRepository.save(productStorage);
+
+    product.getStorage().add(productStorage);
     productRepository.save(product);
 
     company.getProducts().add(product);
@@ -76,7 +89,8 @@ public class Instantiation implements CommandLineRunner {
         LocalDateTime.of(2020, 2, 1, 20, 30), LocalDateTime.of(2020, 2, 1, 21, 30),
         Collections.singletonList(product), "www.youtube.com", new CompanyReferenceDto(company),
         new UserReferenceDto(renan), false);
-
     eventRepository.save(event);
+
+
   }
 }
