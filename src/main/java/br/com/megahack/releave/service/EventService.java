@@ -6,6 +6,8 @@ import br.com.megahack.releave.model.dto.reference.CompanyReferenceDto;
 import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
 import br.com.megahack.releave.model.dto.request.EventRequestDto;
 import br.com.megahack.releave.repository.EventRepository;
+import br.com.megahack.releave.service.exception.ObjectNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,4 +41,15 @@ public class EventService {
 
     return this.save(event);
   }
+
+  public Event findById(String id){
+    return eventRepository.findById(id)
+        .orElseThrow(
+            () -> new ObjectNotFoundException(String.format("Event id %s not found.", id)));
+  }
+
+  public List<Event> findAll(){
+    return eventRepository.findAll();
+  }
+
 }
