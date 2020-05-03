@@ -25,7 +25,7 @@ public class User extends AbstractModel {
   private String photoUrl;
   private String password;
   private List<CompanyReferenceDto> companyOwner = new ArrayList<>();
-  private List<CompanyReferenceDto> companiesEmployer = new ArrayList<>();
+  private List<CompanyReferenceDto> employerCompanies = new ArrayList<>();
 
   public enum Gender{
     MAN, WOMAN
