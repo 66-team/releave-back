@@ -33,5 +33,14 @@ public class ControllerExceptionHandler {
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
   }
 
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e,
+      HttpServletRequest request) {
+
+    StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+        HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage(), request.getRequestURI());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+  }
+
 
 }

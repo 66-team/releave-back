@@ -18,6 +18,11 @@ public class CompanyService {
         () -> new ObjectNotFoundException(String.format("Company cnpj %s not found.", cnpj)));
   }
 
+  public Company findById(String id){
+    return companyRepository.findById(id).orElseThrow(
+        () -> new ObjectNotFoundException(String.format("Company id %s not found.", id)));
+  }
+
   public Company save(Company company){
     return companyRepository.save(company);
   }
