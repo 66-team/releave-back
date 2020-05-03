@@ -37,7 +37,7 @@ public class UserController {
     User user = userService.save(new User(userDto));
     if(UserType.SELLER.equals(user.getType())){
       Company company = companyService.save(
-          new Company(userDto.getCnpj(), userDto.getFantasyName(), new UserReferenceDto(user)));
+          new Company(userDto.getCnpj().replaceAll("\\D", ""), userDto.getFantasyName(), new UserReferenceDto(user)));
       user.getCompanyOwner().add(new CompanyReferenceDto(company));
       userService.save(user);
     }

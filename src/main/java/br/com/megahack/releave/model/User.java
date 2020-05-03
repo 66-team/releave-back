@@ -40,7 +40,7 @@ public class User extends AbstractModel {
   public User(UserRequestDto userRequestDto) {
     super();
     this.name = userRequestDto.getName();
-    this.cpf = userRequestDto.getCpf();
+    this.cpf = userRequestDto.getCpf().replaceAll("\\D", "");
     this.birthday = userRequestDto.getBirthday();
     this.type = userRequestDto.getType();
     this.password = userRequestDto.getPassword();
