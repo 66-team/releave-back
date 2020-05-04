@@ -2,7 +2,9 @@ package br.com.megahack.releave.controller.exception;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 public class ValidationError extends StandardError {
 
   private final List<FieldMessage> erros = new ArrayList<>();

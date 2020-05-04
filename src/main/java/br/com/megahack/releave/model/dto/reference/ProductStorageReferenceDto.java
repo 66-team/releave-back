@@ -1,6 +1,5 @@
 package br.com.megahack.releave.model.dto.reference;
 
-import br.com.megahack.releave.model.Product;
 import br.com.megahack.releave.model.ProductStorage;
 import java.io.Serializable;
 import java.math.BigDecimal;

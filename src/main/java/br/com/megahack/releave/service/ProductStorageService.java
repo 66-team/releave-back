@@ -1,6 +1,5 @@
 package br.com.megahack.releave.service;
 
-import br.com.megahack.releave.model.Product;
 import br.com.megahack.releave.model.ProductStorage;
 import br.com.megahack.releave.repository.ProductStorageRepository;
 import br.com.megahack.releave.service.exception.ObjectNotFoundException;
