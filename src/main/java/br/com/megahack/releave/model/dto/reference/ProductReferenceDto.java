@@ -4,9 +4,13 @@ import br.com.megahack.releave.model.Product;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductReferenceDto implements Serializable {
   private String id;
   private String name;

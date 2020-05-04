@@ -2,6 +2,7 @@ package br.com.megahack.releave.model;
 
 import br.com.megahack.releave.model.dto.reference.CompanyReferenceDto;
 import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
+import br.com.megahack.releave.model.dto.request.ProductRequestDto;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -37,4 +38,13 @@ public class Product extends AbstractModel {
     this.company = company;
     this.registeredByUser = registeredByUser;
   }
+
+  public Product(ProductRequestDto dto){
+    this.name = dto.getName();
+    this.describe = dto.getDescribe();
+    this.brand = dto.getBrand();
+    this.referenceSeller = dto.getReferenceProduct();
+    this.imagesUrl = dto.getImagesUrl();
+  }
+
 }
