@@ -90,7 +90,7 @@ public class Instantiation implements CommandLineRunner {
 
     Event event = new Event("Novo Livro Paulo Coelho", "Livro blá blá blá",
         LocalDateTime.of(2020, 2, 1, 20, 30), LocalDateTime.of(2020, 2, 1, 21, 30),
-        Collections.singletonList(new ProductStorageReferenceDto(productStorage)), "www.youtube.com", new CompanyReferenceDto(company),
+        Sets.newHashSet(new ProductStorageReferenceDto(productStorage)), "www.youtube.com", new CompanyReferenceDto(company),
         new UserReferenceDto(renan), false);
     eventRepository.save(event);
 

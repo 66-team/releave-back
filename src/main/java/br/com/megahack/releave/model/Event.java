@@ -6,7 +6,9 @@ import br.com.megahack.releave.model.dto.reference.UserReferenceDto;
 import br.com.megahack.releave.model.dto.request.EventRequestDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +26,7 @@ public class Event extends AbstractModel {
   private String description;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
-  private List<ProductStorageReferenceDto> productsStorage = new ArrayList<>();
+  private Set<ProductStorageReferenceDto> productsStorage = new HashSet<>();
   private String streamUrl;
   private CompanyReferenceDto company;
   private UserReferenceDto employer;

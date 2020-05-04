@@ -1,5 +1,6 @@
 package br.com.megahack.releave.service;
 
+import br.com.megahack.releave.model.Company;
 import br.com.megahack.releave.model.Product;
 import br.com.megahack.releave.model.ProductStorage;
 import br.com.megahack.releave.model.User;
@@ -38,18 +39,13 @@ public class ProductService {
 
   public ProductStorage saveRequest(ProductRequestDto dto) {
     Product product = new Product(dto);
-
+    Company company = companyService.findById(dto.getIdCompany());
     User user = userService.findById(dto.getIdUser());
-    boolean isEmployer = user.getEmployerCompanies().stream()
-        .anyMatch(e -> dto.getIdCompany().equalsIgnoreCase(e.getId()));
-    boolean isOwner = user.getCompanyOwner().stream()
-        .anyMatch(e -> dto.getIdCompany().equalsIgnoreCase(e.getId()));
 
-    if (!isEmployer && !isOwner) {
-      throw new IllegalArgumentException("User is not associated to company.");
-    }
+    companyService.validCompanyUser(company,user);
+
     product.setRegisteredByUser(new UserReferenceDto(user));
-    product.setCompany(new CompanyReferenceDto(companyService.findById(dto.getIdCompany())));
+    product.setCompany(new CompanyReferenceDto(company));
     productRepository.save(product);
     ProductStorage productStorage = productStorageService.save(
         new ProductStorage(new ProductReferenceDto(product), dto.getPrice(), dto.getQuantity(),

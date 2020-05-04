@@ -3,6 +3,7 @@ package br.com.megahack.releave.controller;
 import static java.util.stream.Collectors.toList;
 
 import br.com.megahack.releave.model.Event;
+import br.com.megahack.releave.model.dto.request.EventProductRequestDto;
 import br.com.megahack.releave.model.dto.request.EventRequestDto;
 import br.com.megahack.releave.model.dto.response.EventResponseDto;
 import br.com.megahack.releave.model.dto.response.IdResponse;
@@ -46,6 +47,12 @@ public class EventController {
   public ResponseEntity<List<EventResponseDto>> findAll() {
     return ResponseEntity
         .ok(eventService.findAll().stream().map(EventResponseDto::new).collect(toList()));
+  }
+
+  @PostMapping("/add-product")
+  public ResponseEntity<Event> addProduct(
+      @RequestBody @Valid EventProductRequestDto eventProductRequestDto) {
+    return ResponseEntity.ok().body(eventService.addProduct(eventProductRequestDto));
   }
 
 }
